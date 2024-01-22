@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { getArticles } from '@/lib/articles';
 import MealsGrid from '@/components/articles/articles-grid';
+import { getArticles } from '@/lib/articles';
 
 export const metadata = {
   title: 'All Meals',
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 async function Articles() {
-  console.log('Fetching meals');
+  console.log('getting /Fetching meals');
   const meals = await getArticles();
 
   return <MealsGrid meals={meals} />;

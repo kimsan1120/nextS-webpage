@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Image from "next/legacy/image"; // Did you forget to run the codemod?
 
-export default function MealItem({ title, slug, content, article, creator }) {
+export default function ArticleItem({ title, slug, content, article, creator }) {
   return (
     <article className="w-80 h-90 bg-white rounded-lg border p-4">
       <div className="border-2 border-gray-500/100 relative w-full h-48 overflow-hidden rounded-md">

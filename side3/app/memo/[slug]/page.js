@@ -1,7 +1,5 @@
-export default function MemoDetailPage() {
+export default function ArticleDetailPage() {
   return (
-    <>
-      <h1>slug page </h1>
-    </>
+    <div>slug</div>
   );
 }

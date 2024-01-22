@@ -15,10 +15,15 @@ const pipeline = util.promisify(stream.pipeline);
 
 
 export async function getArticles() {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-
-  // throw new Error('Loading articles failed');
-  return db.prepare('SELECT * FROM articles').all();
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    // throw new Error('Loading articles failed');
+    return db.prepare('SELECT * FROM articles').all();
+  } catch (error) {
+    console.error("Error in getArticle:", error.message);
+    throw error; // Propagate the error
+  }
+  
 }
 
 export function getArticle(slug) {
