@@ -11,8 +11,23 @@ import util from "util";
 const dbPath = path.join(process.cwd(), "articles.db");
 const db = sql(dbPath);
 console.log("Connected to database at:", dbPath);
-
 const pipeline = util.promisify(stream.pipeline);
+
+
+export async function getArticles() {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  // throw new Error('Loading articles failed');
+  return db.prepare('SELECT * FROM articles').all();
+}
+
+export function getArticle(slug) {
+  return db.prepare('SELECT * FROM articles WHERE slug = ?').get(slug);
+}
+
+
+
+
 
 export async function saveArticle(article) {
   article.title = xss(article.title);

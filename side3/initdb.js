@@ -23,7 +23,7 @@ db.prepare(
 ).run();
 
 const dummyArticles = [
-  { slug: 'test-article 1', title: 'Test Article 1', creator: 'John Doe 1', creator_email: 'john1@example.com', article: 'This is a test article 1.', content: '/images/test1-title.png' },
+  { slug: 'test-article 1', title: 'Test Article 1', creator: 'John Doe 1', creator_email: 'john1@example.com', article: 'This is a test article 1.', content: '/images/notebook-clone.png' },
   { slug: 'test-article 2', title: 'Test Article 2', creator: 'John Doe 2', creator_email: 'john2@example.com', article: 'This is a test article 2.', content: '/images/text2.png' },
 ];
 
