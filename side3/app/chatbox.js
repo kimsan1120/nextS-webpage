@@ -29,10 +29,31 @@ const ChatBox = () => {
     }
   };
 
+  // 메시지 내용을 .txt 파일로 저장하는 함수
+  const saveMessagesToFile = () => {
+    const combinedMessages = chatMessages.map(msg => `${msg.type.toUpperCase()}: ${msg.text}`).join('\n');
+    const blob = new Blob([combinedMessages], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'chat-messages.txt';
+    a.click();
+
+    URL.revokeObjectURL(url);
+  };
+
+
   return (
     <div className="fixed bottom-4 right-4">
       {!isOpen && (
-        <button className="bg-blue-500 mx-5 my-5 text-white p-7 rounded-full focus:outline-none hover:bg-blue-700" onClick={() => setIsOpen(true)}>
+        <button className="bg-blue-500 mx-5 my-5 text-white p-7 rounded-full focus:outline-none hover:bg-blue-700" 
+        onClick={() => {setIsOpen(true);
+          saveMessagesToFile();
+        }}
+        
+
+        >
           <svg className="w-10 h-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25" stroke-width="1.5" stroke="currentColor">
             <path
               stroke-linecap="round"
@@ -44,7 +65,7 @@ const ChatBox = () => {
       )}
       {isOpen && (
         <div className="flex flex-col mt-2 p-0 w-[600px] min-h-[500px] bg-white rounded-lg shadow-lg">
-          <div class="pb-6 m-3 flex justify-between">
+          <div class="p-6 m-3 flex justify-between">
             <h2 class="font-semibold text-lg">Chatbot</h2>
 
             {/* 닫기 버튼 */}
@@ -57,57 +78,56 @@ const ChatBox = () => {
             {/* 닫기 버튼 */}
           </div>
           {/* <div className="mb-5 mt-2 mx-1 max-h-[300px] overflow-y-auto"> */}
-          <div className="flex-grow overflow-y-auto mb-2 mx-2 max-h-[300px]">
-
+          <div className="flex-grow overflow-y-auto mb-2 mx-5 max-h-[300px]">
             {chatMessages.map((msg, index) => (
-              <div key={index} className={`flex my-4 text-gray-600 text-sm ${msg.type === "user" ? "justify-end" : ""}`}>
-                {msg.type === "admin" && (
-                  <span className="flex shrink-0 overflow-hidden rounded-full w-8 h-8 ml-2">
-
-                  </span>
-                )}
+              <div key={index} className={`flex my-1 p-4 text-gray-600 text-sm ${msg.type === "user" ? "justify-end" : ""}`}>
                 <p className={`leading-relaxed ${msg.type === "admin" ? "text-left" : "text-right"}`}>
                   <span className="block font-bold text-gray-700">{msg.type === "admin" ? "Admin" : "User"}</span>
                   {msg.text}
                 </p>
-                {msg.type === "user" && (
-                  <span className="flex shrink-0 overflow-hidden rounded-full w-8 h-8 mr-2">
-
-                  </span>
-                )}
               </div>
             ))}
           </div>
+          <div className="px-9 gap-2">
+            <div className="flex-shrink-0 flex items-center pt-0">
+              <input
+                className="flex h-10 w-full rounded-md border border-[#e5e7eb] py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
+                placeholder="Type your message"
+                value={userText}
+                onChange={(e) => handleChange(e, true)}
+                style={{ overflow: "hidden" }}
+              />
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2" onClick={() => handleSendMessage(true)}>
+                SendU
+              </button>
+            </div>
 
-          <div className="flex-shrink-0 flex items-center pt-0">
-            <input
-              className="flex h-10 w-full rounded-md border border-[#e5e7eb] px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
-              placeholder="Type your message"
-              value={userText}
-              onChange={(e) => handleChange(e, true)}
-              style={{ overflow: "hidden" }}
-            />
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2" onClick={() => handleSendMessage(true)}>
-              SendU
-            </button>
-          </div>
-
-          <div className="flex items-center pt-0">
-            <input
-              className="flex h-10 w-full rounded-md border border-[#e5e7eb] px-3 py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
-              placeholder="Admin message"
-              value={adminText}
-              onChange={(e) => handleChange(e, false)}
-              style={{ overflow: "hidden" }}
-            />
-            <button className="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2" onClick={() => handleSendMessage(false)}>
-              SendA
-            </button>
+            <div className="flex-shrink-0 flex items-center pt-0">
+              <input
+                className="flex h-10 w-full rounded-md border border-[#e5e7eb] py-2 text-sm placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#9ca3af] disabled:cursor-not-allowed disabled:opacity-50 text-[#030712] focus-visible:ring-offset-2"
+                placeholder="Admin message"
+                value={adminText}
+                onChange={(e) => handleChange(e, false)}
+                style={{ overflow: "hidden" }}
+              />
+              <button className="inline-flex items-center justify-center rounded-md text-sm font-medium text-[#f9fafb] disabled:pointer-events-none disabled:opacity-50 bg-black hover:bg-[#111827E6] h-10 px-4 py-2" onClick={() => handleSendMessage(false)}>
+                SendA
+              </button>
+            </div>
           </div>
         </div>
       )}
+    
     </div>
   );
 };
 
 export default ChatBox;
+
+
+
+
+
+
+
+

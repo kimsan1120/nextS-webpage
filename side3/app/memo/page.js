@@ -1,18 +1,18 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import MealsGrid from "@/components/articles/articles-grid";
+import ArticlesGrid from "@/components/articles/articles-grid";
 import { getArticles } from "@/lib/articles";
 
 export const metadata = {
-  title: "All Meals",
-  description: "Browse the delicious meals shared by our vibrant community.",
+  title: "All Articles",
+  description: "Browse the articles in our community.",
 };
 
 async function Articles() {
-  console.log("getting /Fetching meals");
+  console.log("getting /Fetching articles");
   const meals = await getArticles();
 
-  return <MealsGrid meals={meals} />;
+  return <ArticlesGrid meals={meals} />;
 }
 
 export default function MemoPage() {
