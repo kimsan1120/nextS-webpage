@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { saveArticle } from "./articles"; // Assuming saveArticle is a function to save data to the database
+import { saveArticle } from "./save-articles"; // Assuming saveArticle is a function to save data to the database
 import { revalidatePath } from "next/cache";
 
 function isInvalidText(text) {

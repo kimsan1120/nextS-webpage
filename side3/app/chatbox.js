@@ -8,9 +8,6 @@ const ChatBox = () => {
   const [adminText, setAdminText] = useState(""); // 관리자 메시지를 위한 상태
   const [chatMessages, setChatMessages] = useState([]);
 
-  const getMessageClass = (type) => {
-    return type === "admin" ? "bg-gray-300" : "bg-blue-300 ml-auto";
-  };
 
   // 입력 필드의 변화를 처리하는 함수
   const handleChange = (event, isUser = true) => {
@@ -29,19 +26,7 @@ const ChatBox = () => {
     }
   };
 
-  // 메시지 내용을 .txt 파일로 저장하는 함수
-  const saveMessagesToFile = () => {
-    const combinedMessages = chatMessages.map(msg => `${msg.type.toUpperCase()}: ${msg.text}`).join('\n');
-    const blob = new Blob([combinedMessages], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'chat-messages.txt';
-    a.click();
-
-    URL.revokeObjectURL(url);
-  };
 
 
   return (
@@ -49,7 +34,6 @@ const ChatBox = () => {
       {!isOpen && (
         <button className="bg-blue-500 mx-5 my-5 text-white p-7 rounded-full focus:outline-none hover:bg-blue-700" 
         onClick={() => {setIsOpen(true);
-          saveMessagesToFile();
         }}
         
 

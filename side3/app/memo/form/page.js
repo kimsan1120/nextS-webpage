@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import FormSubmit from "@/form/form-submit";
 import ContentPicker from "@/components/contents/content-picker";
-import { shareArticle } from "@/lib/actions";
+import { shareArticle } from "@/lib/articles-actions";
 import Link from "next/link";
 
 export default function FormPage() {

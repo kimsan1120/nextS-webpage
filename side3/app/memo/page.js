@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import ArticlesGrid from "@/components/articles/articles-grid";
-import { getArticles } from "@/lib/articles";
+import { getArticles } from "@/lib/save-articles";
 
 export const metadata = {
   title: "All Articles",
